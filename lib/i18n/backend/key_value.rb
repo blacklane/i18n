@@ -59,7 +59,7 @@ module I18n
           @store, @subtrees = store, subtrees
         end
 
-        def store_translations(locale, data, options = {})
+        def store_translations(locale, data, options = EMPTY_HASH)
           escape = options.fetch(:escape, true)
           flatten_translations(locale, data, escape, @subtrees).each do |key, value|
             key = "#{locale}.#{key}"
@@ -88,7 +88,7 @@ module I18n
 
       protected
 
-        def lookup(locale, key, scope = [], options = {})
+        def lookup(locale, key, scope = [], options = EMPTY_HASH)
           key   = normalize_flat_keys(locale, key, scope, options[:separator])
           value = @store["#{locale}.#{key}"]
           value = ActiveSupport::JSON.decode(value) if value
